@@ -22,6 +22,10 @@
             position: relative;
             font-size: 4rem;
             font-weight: 600;
+            height: 100vh; /* NEW */
+            display: flex; /* NEW */
+            align-items: center; /* NEW */
+            justify-content: center; /* NEW */
         }
 
         .word {
@@ -65,20 +69,6 @@
                 border-color: transparent;
             }
         }
-        #fork {
-            position: absolute;
-            top: -200px; /* Start off-screen */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            opacity: 0;
-            transition: top 0.6s ease-out, opacity 0.4s;
-        }
-
-        #fork.stab {
-            top: 120px; /* Lands below the text */
-            opacity: 1;
-        }
     </style>
 </head>
 
@@ -90,7 +80,6 @@
             <span id="eat">Eat&nbsp;</span>
             <span id="matters"></span>
         </div>
-        <img id="fork" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Fork_icon.svg" alt="Fork" />
 
     </div>
 
