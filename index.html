@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What You Eat Matters</title>
+    <style>
+        body {
+            margin: 0;
+            background: #111;
+            color: white;
+            font-family: sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            font-size: 4rem;
+            font-weight: 600;
+        }
+
+        .word {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            opacity: 0;
+            transition: all 0.6s ease;
+            white-space: nowrap;
+        }
+
+        .word.show {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+        }
+
+        .outline-text {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            text-stroke: 2px white;
+        }
+
+        .eat-matters {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease; /* 👈 Smooth movement */
+        }
+
+        #matters {
+            white-space: nowrap;
+            overflow: hidden;
+            /* border-right: 0.1em solid white;
+            animation: blink 0.7s steps(1) infinite; */
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+        #fork {
+            position: absolute;
+            top: -200px; /* Start off-screen */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            opacity: 0;
+            transition: top 0.6s ease-out, opacity 0.4s;
+        }
+
+        #fork.stab {
+            top: 120px; /* Lands below the text */
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="what" class="word outline-text">What</div>
+        <div id="you" class="word outline-text">You</div>
+        <div id="eatMatters" class="word eat-matters">
+            <span id="eat">Eat&nbsp;</span>
+            <span id="matters"></span>
+        </div>
+        <img id="fork" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Fork_icon.svg" alt="Fork" />
+
+    </div>
+
+    <script>
+        const what = document.getElementById('what');
+        const you = document.getElementById('you');
+        const eatMatters = document.getElementById('eatMatters');
+        const eat = document.getElementById('eat');
+        const matters = document.getElementById('matters');
+
+        const mattersText = " Matters";
+
+        // Show "What"
+        setTimeout(() => {
+            what.classList.add('show');
+        }, 500);
+
+        // Show "You"
+        setTimeout(() => {
+            what.classList.remove('show');
+            you.classList.add('show');
+        }, 1500);
+
+        // Show "Eat"
+        setTimeout(() => {
+            you.classList.remove('show');
+            eatMatters.classList.add('show');
+        }, 2500);
+
+        // Typewriter for "Matters"
+        setTimeout(() => {
+            let i = 0;
+            const typeInterval = setInterval(() => {
+                if (i < mattersText.length) {
+                    const span = document.createElement("span");
+                    span.textContent = mattersText.charAt(i);
+                    span.style.opacity = 0;
+                    span.style.display = "inline-block";
+                    span.style.transition = "opacity 0.3s ease";
+                    matters.appendChild(span);
+
+                    // trigger fade-in
+                    setTimeout(() => {
+                        span.style.opacity = 1;
+                    }, 10);
+
+                    // recenter
+                    const width = eatMatters.offsetWidth;
+                    eatMatters.style.transform = `translateX(-${width / 2}px) scale(1)`;
+
+                    i++;
+                } else {
+                    clearInterval(typeInterval);
+                }
+            }, 200);
+        }, 3200);
+    </script>
+</body>
+
+</html>
